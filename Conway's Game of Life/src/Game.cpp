@@ -109,13 +109,13 @@ void Game::draw()
 		{
 			if (!getCellFromLoc(m_Cells, row, col))
 			{
-				m_DeadCell.setPosition(col * CELL_WIDTH, row * CELL_WIDTH);
+				m_DeadCell.setPosition((unsigned int) (col * CELL_WIDTH), (unsigned int) (row * CELL_WIDTH));
 				m_Window.draw(m_DeadCell);
 			}
 
 			else
 			{
-				m_AliveCell.setPosition(col * CELL_WIDTH, row * CELL_WIDTH);
+				m_AliveCell.setPosition((unsigned int) (col * CELL_WIDTH), (unsigned int) (row * CELL_WIDTH));
 				m_Window.draw(m_AliveCell);
 			}
 		}
