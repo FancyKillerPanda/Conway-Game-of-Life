@@ -1,5 +1,6 @@
 #pragma once
 
+#include <chrono>
 #include <array>
 
 #include <SFML/Graphics.hpp>
@@ -22,6 +23,11 @@ private:
 
 	sf::RectangleShape m_AliveCell;
 	sf::RectangleShape m_DeadCell;
+
+#ifdef SHOW_FRAME_RATE
+	sf::Clock m_FpsClock;
+#endif // SHOW_FRAME_RATE
+
 
 private:
 	void handleEvents();

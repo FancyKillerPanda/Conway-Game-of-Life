@@ -1,6 +1,7 @@
 #include "Game.h"
 
 #include <random>
+#include <iostream>
 
 #include "Core.h"
 
@@ -10,7 +11,9 @@ Game::Game()
 		m_AliveCell(sf::Vector2f(CELL_WIDTH, CELL_WIDTH)),
 		m_DeadCell(sf::Vector2f(CELL_WIDTH, CELL_WIDTH))
 {
+#ifndef SHOW_FRAME_RATE
 	m_Window.setFramerateLimit(3);
+#endif // SHOW_FRAME_RATE
 
 	std::mt19937 rng;
 	rng.seed(std::random_device()());
@@ -61,6 +64,11 @@ void Game::handleEvents()
 
 void Game::update()
 {
+#ifdef SHOW_FRAME_RATE
+	float currentTime = m_FpsClock.restart().asSeconds();
+	std::cout << 1.0f / currentTime << " FPS" << std::endl;
+#endif
+
 	std::vector<bool> updates;
 
 	for (unsigned int row = 0; row < NUM_OF_CELL_ROWS; row++)
@@ -109,13 +117,13 @@ void Game::draw()
 		{
 			if (!getCellFromLoc(m_Cells, row, col))
 			{
-				m_DeadCell.setPosition((unsigned int) (col * CELL_WIDTH), (unsigned int) (row * CELL_WIDTH));
+				m_DeadCell.setPosition((float) (col * CELL_WIDTH), (float) (row * CELL_WIDTH));
 				m_Window.draw(m_DeadCell);
 			}
 
 			else
 			{
-				m_AliveCell.setPosition((unsigned int) (col * CELL_WIDTH), (unsigned int) (row * CELL_WIDTH));
+				m_AliveCell.setPosition((float) (col * CELL_WIDTH), (float) (row * CELL_WIDTH));
 				m_Window.draw(m_AliveCell);
 			}
 		}
